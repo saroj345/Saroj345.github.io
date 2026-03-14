@@ -16,5 +16,9 @@ exclude:
 markdown: kramdown
 highlighter: rouge
 
+kramdown:
+  parse_block_html: true
+  input: GFM
+
 # Show posts with future dates
 future: true
