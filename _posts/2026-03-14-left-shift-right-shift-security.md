@@ -268,93 +268,93 @@ To detect brute force and privilege escalation, add these custom correlation rul
   </defs>
   <rect width="980" height="320" fill="#050a05"/>
 
-  <!-- Zone backgrounds — clear gap between left and right -->
-  <rect x="8" y="8" width="468" height="304" rx="6" fill="rgba(0,255,65,0.04)" stroke="#00ff41" stroke-width="0.5" stroke-opacity="0.4"/>
+  <!-- Zone backgrounds — LEFT ends at 480, RIGHT starts at 500, clear gap -->
+  <rect x="8" y="8" width="480" height="304" rx="6" fill="rgba(0,255,65,0.04)" stroke="#00ff41" stroke-width="0.5" stroke-opacity="0.4"/>
   <text x="24" y="26" fill="#00ff41" font-size="9" letter-spacing="3" opacity="0.7">⬅ SHIFT LEFT</text>
-  <rect x="504" y="8" width="468" height="304" rx="6" fill="rgba(255,107,0,0.04)" stroke="#ff6b00" stroke-width="0.5" stroke-opacity="0.4"/>
-  <text x="520" y="26" fill="#ff6b00" font-size="9" letter-spacing="3" opacity="0.7">SHIFT RIGHT ➡</text>
+  <rect x="500" y="8" width="480" height="304" rx="6" fill="rgba(255,107,0,0.04)" stroke="#ff6b00" stroke-width="0.5" stroke-opacity="0.4"/>
+  <text x="516" y="26" fill="#ff6b00" font-size="9" letter-spacing="3" opacity="0.7">SHIFT RIGHT ➡</text>
 
   <!-- Pipeline arrow -->
-  <line x1="40" y1="165" x2="940" y2="165" stroke="#1a3d2e" stroke-width="1.5" marker-end="url(#arr)" stroke-dasharray="5,4"/>
+  <line x1="40" y1="165" x2="960" y2="165" stroke="#1a3d2e" stroke-width="1.5" marker-end="url(#arr)" stroke-dasharray="5,4"/>
 
-  <!-- Stage boxes — 7 stages evenly spaced, w=110 each -->
-  <!-- CODE x=20 -->
-  <rect x="20" y="60" width="110" height="88" rx="5" fill="#0a1a0a" stroke="#00ff41" stroke-width="1.2" filter="url(#gl3)"/>
-  <text x="75" y="86" fill="#00ff41" font-size="20" text-anchor="middle">💻</text>
-  <text x="75" y="105" fill="#00ff41" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">CODE</text>
-  <text x="75" y="120" fill="#2d6b2d" font-size="8" text-anchor="middle">SAST · IDE plugins</text>
-  <text x="75" y="133" fill="#2d6b2d" font-size="8" text-anchor="middle">Threat modeling</text>
+  <!-- 7 stages: CODE(60) COMMIT(190) BUILD(320) TEST(450) | DEPLOY(570) MONITOR(700) RESPOND(830) -->
+  <!-- CODE -->
+  <rect x="18" y="55" width="115" height="92" rx="5" fill="#0a1a0a" stroke="#00ff41" stroke-width="1.2" filter="url(#gl3)"/>
+  <text x="75" y="82" fill="#00ff41" font-size="20" text-anchor="middle">💻</text>
+  <text x="75" y="102" fill="#00ff41" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">CODE</text>
+  <text x="75" y="117" fill="#2d6b2d" font-size="8" text-anchor="middle">SAST · IDE plugins</text>
+  <text x="75" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Threat modeling</text>
   <circle cx="75" cy="165" r="4" fill="#00ff41" filter="url(#gl3)"/>
-  <line x1="75" y1="148" x2="75" y2="161" stroke="#00ff41" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+  <line x1="75" y1="147" x2="75" y2="161" stroke="#00ff41" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
 
-  <!-- COMMIT x=150 -->
-  <rect x="150" y="60" width="110" height="88" rx="5" fill="#0a1a0a" stroke="#00d4ff" stroke-width="1.2" filter="url(#gl3)"/>
-  <text x="205" y="86" fill="#00d4ff" font-size="20" text-anchor="middle">📝</text>
-  <text x="205" y="105" fill="#00d4ff" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">COMMIT</text>
-  <text x="205" y="120" fill="#2d6b2d" font-size="8" text-anchor="middle">Secret scanning</text>
-  <text x="205" y="133" fill="#2d6b2d" font-size="8" text-anchor="middle">Pre-commit hooks</text>
+  <!-- COMMIT -->
+  <rect x="148" y="55" width="115" height="92" rx="5" fill="#0a1a0a" stroke="#00d4ff" stroke-width="1.2" filter="url(#gl3)"/>
+  <text x="205" y="82" fill="#00d4ff" font-size="20" text-anchor="middle">📝</text>
+  <text x="205" y="102" fill="#00d4ff" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">COMMIT</text>
+  <text x="205" y="117" fill="#2d6b2d" font-size="8" text-anchor="middle">Secret scanning</text>
+  <text x="205" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Pre-commit hooks</text>
   <circle cx="205" cy="165" r="4" fill="#00d4ff" filter="url(#gl3)"/>
-  <line x1="205" y1="148" x2="205" y2="161" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+  <line x1="205" y1="147" x2="205" y2="161" stroke="#00d4ff" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
 
-  <!-- BUILD x=280 -->
-  <rect x="280" y="60" width="110" height="88" rx="5" fill="#0a1a0a" stroke="#ffe000" stroke-width="1.2" filter="url(#gl3)"/>
-  <text x="335" y="86" fill="#ffe000" font-size="20" text-anchor="middle">🔨</text>
-  <text x="335" y="105" fill="#ffe000" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">BUILD</text>
-  <text x="335" y="120" fill="#2d6b2d" font-size="8" text-anchor="middle">SCA · SBOM</text>
-  <text x="335" y="133" fill="#2d6b2d" font-size="8" text-anchor="middle">Trivy · OWASP DC</text>
+  <!-- BUILD -->
+  <rect x="278" y="55" width="115" height="92" rx="5" fill="#0a1a0a" stroke="#ffe000" stroke-width="1.2" filter="url(#gl3)"/>
+  <text x="335" y="82" fill="#ffe000" font-size="20" text-anchor="middle">🔨</text>
+  <text x="335" y="102" fill="#ffe000" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">BUILD</text>
+  <text x="335" y="117" fill="#2d6b2d" font-size="8" text-anchor="middle">SCA · SBOM</text>
+  <text x="335" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Trivy · OWASP DC</text>
   <circle cx="335" cy="165" r="4" fill="#ffe000" filter="url(#gl3)"/>
-  <line x1="335" y1="148" x2="335" y2="161" stroke="#ffe000" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+  <line x1="335" y1="147" x2="335" y2="161" stroke="#ffe000" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
 
-  <!-- TEST x=410 -->
-  <rect x="410" y="60" width="110" height="88" rx="5" fill="#0a1a0a" stroke="#00ff88" stroke-width="1.2" filter="url(#gl3)"/>
-  <text x="465" y="86" fill="#00ff88" font-size="20" text-anchor="middle">🧪</text>
-  <text x="465" y="105" fill="#00ff88" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">TEST</text>
-  <text x="465" y="120" fill="#2d6b2d" font-size="8" text-anchor="middle">DAST · IAST</text>
-  <text x="465" y="133" fill="#2d6b2d" font-size="8" text-anchor="middle">Burp Suite · ZAP</text>
-  <circle cx="465" cy="165" r="4" fill="#00ff88" filter="url(#gl3)"/>
-  <line x1="465" y1="148" x2="465" y2="161" stroke="#00ff88" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+  <!-- TEST — fully inside left zone (ends at x=478, zone ends at 488) -->
+  <rect x="363" y="55" width="115" height="92" rx="5" fill="#0a1a0a" stroke="#00ff88" stroke-width="1.2" filter="url(#gl3)"/>
+  <text x="420" y="82" fill="#00ff88" font-size="20" text-anchor="middle">🧪</text>
+  <text x="420" y="102" fill="#00ff88" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">TEST</text>
+  <text x="420" y="117" fill="#2d6b2d" font-size="8" text-anchor="middle">DAST · IAST</text>
+  <text x="420" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Burp Suite · ZAP</text>
+  <circle cx="420" cy="165" r="4" fill="#00ff88" filter="url(#gl3)"/>
+  <line x1="420" y1="147" x2="420" y2="161" stroke="#00ff88" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
 
-  <!-- DEPLOY x=540 -->
-  <rect x="540" y="60" width="110" height="88" rx="5" fill="#0a1a0a" stroke="#ff6b00" stroke-width="1.2" filter="url(#gl3)"/>
-  <text x="595" y="86" fill="#ff6b00" font-size="20" text-anchor="middle">🚀</text>
-  <text x="595" y="105" fill="#ff6b00" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">DEPLOY</text>
-  <text x="595" y="120" fill="#2d6b2d" font-size="8" text-anchor="middle">IaC · Checkov</text>
-  <text x="595" y="133" fill="#2d6b2d" font-size="8" text-anchor="middle">Signed artifacts</text>
-  <circle cx="595" cy="165" r="4" fill="#ff6b00" filter="url(#gl3)"/>
-  <line x1="595" y1="148" x2="595" y2="161" stroke="#ff6b00" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+  <!-- DEPLOY — fully inside right zone -->
+  <rect x="508" y="55" width="115" height="92" rx="5" fill="#0a1a0a" stroke="#ff6b00" stroke-width="1.2" filter="url(#gl3)"/>
+  <text x="565" y="82" fill="#ff6b00" font-size="20" text-anchor="middle">🚀</text>
+  <text x="565" y="102" fill="#ff6b00" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">DEPLOY</text>
+  <text x="565" y="117" fill="#2d6b2d" font-size="8" text-anchor="middle">IaC · Checkov</text>
+  <text x="565" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Signed artifacts</text>
+  <circle cx="565" cy="165" r="4" fill="#ff6b00" filter="url(#gl3)"/>
+  <line x1="565" y1="147" x2="565" y2="161" stroke="#ff6b00" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
 
-  <!-- MONITOR x=670 -->
-  <rect x="670" y="60" width="110" height="88" rx="5" fill="#0a1a0a" stroke="#ff3366" stroke-width="1.2" filter="url(#gl3)"/>
-  <text x="725" y="86" fill="#ff3366" font-size="20" text-anchor="middle">📡</text>
-  <text x="725" y="105" fill="#ff3366" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">MONITOR</text>
-  <text x="725" y="120" fill="#2d6b2d" font-size="8" text-anchor="middle">SIEM · WAF</text>
-  <text x="725" y="133" fill="#2d6b2d" font-size="8" text-anchor="middle">Wazuh · Splunk</text>
-  <circle cx="725" cy="165" r="4" fill="#ff3366" filter="url(#gl3)"/>
-  <line x1="725" y1="148" x2="725" y2="161" stroke="#ff3366" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+  <!-- MONITOR -->
+  <rect x="643" y="55" width="115" height="92" rx="5" fill="#0a1a0a" stroke="#ff3366" stroke-width="1.2" filter="url(#gl3)"/>
+  <text x="700" y="82" fill="#ff3366" font-size="20" text-anchor="middle">📡</text>
+  <text x="700" y="102" fill="#ff3366" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">MONITOR</text>
+  <text x="700" y="117" fill="#2d6b2d" font-size="8" text-anchor="middle">SIEM · WAF</text>
+  <text x="700" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Wazuh · Splunk</text>
+  <circle cx="700" cy="165" r="4" fill="#ff3366" filter="url(#gl3)"/>
+  <line x1="700" y1="147" x2="700" y2="161" stroke="#ff3366" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
 
-  <!-- RESPOND x=800 -->
-  <rect x="800" y="60" width="110" height="88" rx="5" fill="#0a1a0a" stroke="#cc00ff" stroke-width="1.2" filter="url(#gl3)"/>
-  <text x="855" y="86" fill="#cc00ff" font-size="20" text-anchor="middle">⚡</text>
-  <text x="855" y="105" fill="#cc00ff" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">RESPOND</text>
-  <text x="855" y="120" fill="#2d6b2d" font-size="8" text-anchor="middle">Incident response</text>
-  <text x="855" y="133" fill="#2d6b2d" font-size="8" text-anchor="middle">Auto-remediation</text>
-  <circle cx="855" cy="165" r="4" fill="#cc00ff" filter="url(#gl3)"/>
-  <line x1="855" y1="148" x2="855" y2="161" stroke="#cc00ff" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
+  <!-- RESPOND -->
+  <rect x="778" y="55" width="115" height="92" rx="5" fill="#0a1a0a" stroke="#cc00ff" stroke-width="1.2" filter="url(#gl3)"/>
+  <text x="835" y="82" fill="#cc00ff" font-size="20" text-anchor="middle">⚡</text>
+  <text x="835" y="102" fill="#cc00ff" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">RESPOND</text>
+  <text x="835" y="117" fill="#2d6b2d" font-size="8" text-anchor="middle">Incident response</text>
+  <text x="835" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Auto-remediation</text>
+  <circle cx="835" cy="165" r="4" fill="#cc00ff" filter="url(#gl3)"/>
+  <line x1="835" y1="147" x2="835" y2="161" stroke="#cc00ff" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
 
   <!-- Cost labels -->
-  <text x="75"  y="190" fill="#00ff41" font-size="9" text-anchor="middle" opacity="0.8">$1</text>
-  <text x="205" y="190" fill="#00d4ff" font-size="9" text-anchor="middle" opacity="0.8">$5</text>
-  <text x="335" y="190" fill="#ffe000" font-size="9" text-anchor="middle" opacity="0.8">$15</text>
-  <text x="465" y="190" fill="#00ff88" font-size="9" text-anchor="middle" opacity="0.8">$50</text>
-  <text x="595" y="190" fill="#ff6b00" font-size="9" text-anchor="middle" opacity="0.8">$150</text>
-  <text x="725" y="190" fill="#ff3366" font-size="9" text-anchor="middle" opacity="0.8">$500</text>
-  <text x="855" y="190" fill="#cc00ff" font-size="9" text-anchor="middle" opacity="0.8">$1000+</text>
-  <text x="490" y="208" fill="#1a3d2e" font-size="8" text-anchor="middle" letter-spacing="1">COST TO FIX A VULNERABILITY AT EACH STAGE</text>
+  <text x="75"  y="192" fill="#00ff41" font-size="9" text-anchor="middle" opacity="0.8">$1</text>
+  <text x="205" y="192" fill="#00d4ff" font-size="9" text-anchor="middle" opacity="0.8">$5</text>
+  <text x="335" y="192" fill="#ffe000" font-size="9" text-anchor="middle" opacity="0.8">$15</text>
+  <text x="420" y="192" fill="#00ff88" font-size="9" text-anchor="middle" opacity="0.8">$50</text>
+  <text x="565" y="192" fill="#ff6b00" font-size="9" text-anchor="middle" opacity="0.8">$150</text>
+  <text x="700" y="192" fill="#ff3366" font-size="9" text-anchor="middle" opacity="0.8">$500</text>
+  <text x="835" y="192" fill="#cc00ff" font-size="9" text-anchor="middle" opacity="0.8">$1000+</text>
+  <text x="490" y="212" fill="#1a3d2e" font-size="8" text-anchor="middle" letter-spacing="1">COST TO FIX A VULNERABILITY AT EACH STAGE</text>
 
   <!-- Key insight box -->
-  <rect x="20" y="222" width="940" height="40" rx="5" fill="rgba(255,224,0,0.03)" stroke="#1a3d2e" stroke-width="0.5"/>
-  <text x="490" y="239" fill="#ffe000" font-size="9" text-anchor="middle" letter-spacing="1" font-weight="bold">KEY INSIGHT</text>
-  <text x="490" y="255" fill="#2d6b2d" font-size="8" text-anchor="middle">Fix at CODE = $1 · Fix in PRODUCTION = $1000+ · Shift left saves money, shift right saves reputation</text>
+  <rect x="18" y="224" width="960" height="40" rx="5" fill="rgba(255,224,0,0.03)" stroke="#1a3d2e" stroke-width="0.5"/>
+  <text x="490" y="241" fill="#ffe000" font-size="9" text-anchor="middle" letter-spacing="1" font-weight="bold">KEY INSIGHT</text>
+  <text x="490" y="257" fill="#2d6b2d" font-size="8" text-anchor="middle">Fix at CODE = $1 · Fix in PRODUCTION = $1000+ · Shift left saves money, shift right saves reputation</text>
 </svg>
 </div>
 
