@@ -248,7 +248,7 @@ To detect brute force and privilege escalation, add these custom correlation rul
   <line x1="30" y1="161" x2="830" y2="161" stroke="#1a3d2e" stroke-width="0.5"/>
   <line x1="30" y1="197" x2="830" y2="197" stroke="#1a3d2e" stroke-width="0.5"/>
   <line x1="30" y1="233" x2="830" y2="233" stroke="#1a3d2e" stroke-width="0.5"/>
-  <line x1="415" y1="60" x2="415" y2="275" stroke="#1a3d2e" stroke-width="0.5"/>
+  <!-- vertical divider removed — spacing is enough -->
   <rect x="30" y="278" width="800" height="26" rx="4" fill="rgba(255,224,0,0.04)" stroke="#1a3d2e" stroke-width="0.5"/>
   <text x="430" y="295" fill="#ffe000" font-size="9" text-anchor="middle" letter-spacing="1">⚡  TOGETHER = "SHIFT EVERYWHERE" — Proactive prevention + Reactive protection</text>
 </svg>
@@ -269,10 +269,10 @@ To detect brute force and privilege escalation, add these custom correlation rul
   <rect width="980" height="320" fill="#050a05"/>
 
   <!-- Zone backgrounds — LEFT ends at 480, RIGHT starts at 500, clear gap -->
-  <rect x="8" y="8" width="480" height="304" rx="6" fill="rgba(0,255,65,0.04)" stroke="#00ff41" stroke-width="0.5" stroke-opacity="0.4"/>
+  <rect x="8" y="8" width="462" height="304" rx="6" fill="rgba(0,255,65,0.04)" stroke="#00ff41" stroke-width="0.5" stroke-opacity="0.4"/>
   <text x="24" y="26" fill="#00ff41" font-size="9" letter-spacing="3" opacity="0.7">⬅ SHIFT LEFT</text>
-  <rect x="500" y="8" width="480" height="304" rx="6" fill="rgba(255,107,0,0.04)" stroke="#ff6b00" stroke-width="0.5" stroke-opacity="0.4"/>
-  <text x="516" y="26" fill="#ff6b00" font-size="9" letter-spacing="3" opacity="0.7">SHIFT RIGHT ➡</text>
+  <rect x="518" y="8" width="462" height="304" rx="6" fill="rgba(255,107,0,0.04)" stroke="#ff6b00" stroke-width="0.5" stroke-opacity="0.4"/>
+  <text x="524" y="26" fill="#ff6b00" font-size="9" letter-spacing="3" opacity="0.7">SHIFT RIGHT ➡</text>
 
   <!-- Pipeline arrow -->
   <line x1="40" y1="165" x2="960" y2="165" stroke="#1a3d2e" stroke-width="1.5" marker-end="url(#arr)" stroke-dasharray="5,4"/>
@@ -301,7 +301,7 @@ To detect brute force and privilege escalation, add these custom correlation rul
   <text x="335" y="82" fill="#ffe000" font-size="20" text-anchor="middle">🔨</text>
   <text x="335" y="102" fill="#ffe000" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">BUILD</text>
   <text x="335" y="117" fill="#2d6b2d" font-size="8" text-anchor="middle">SCA · SBOM</text>
-  <text x="335" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Trivy · OWASP DC</text>
+  <text x="335" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Trivy · OWASP</text>
   <circle cx="335" cy="165" r="4" fill="#ffe000" filter="url(#gl3)"/>
   <line x1="335" y1="147" x2="335" y2="161" stroke="#ffe000" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
 
@@ -310,7 +310,7 @@ To detect brute force and privilege escalation, add these custom correlation rul
   <text x="420" y="82" fill="#00ff88" font-size="20" text-anchor="middle">🧪</text>
   <text x="420" y="102" fill="#00ff88" font-size="9" text-anchor="middle" font-weight="bold" letter-spacing="1">TEST</text>
   <text x="420" y="117" fill="#2d6b2d" font-size="8" text-anchor="middle">DAST · IAST</text>
-  <text x="420" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Burp Suite · ZAP</text>
+  <text x="420" y="130" fill="#2d6b2d" font-size="8" text-anchor="middle">Burp · ZAP</text>
   <circle cx="420" cy="165" r="4" fill="#00ff88" filter="url(#gl3)"/>
   <line x1="420" y1="147" x2="420" y2="161" stroke="#00ff88" stroke-width="0.8" stroke-opacity="0.5" stroke-dasharray="2,2"/>
 
