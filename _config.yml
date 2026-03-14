@@ -9,7 +9,6 @@ permalink: /blog/:year/:month/:day/:title
 
 # Exclude files from Jekyll processing
 exclude:
-  - "*.mp3"
   - README.md
 
 # Markdown settings
