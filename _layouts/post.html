@@ -172,6 +172,41 @@ body::after{
 }
 .connect-btn.email:hover{background:rgba(0,255,65,.15);border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,255,65,.15)}
 
+
+/* ── RELATED POSTS ── */
+.related-section{margin:32px 0 8px}
+.related-title{
+  font-family:'Orbitron';font-size:10px;color:var(--accent);
+  letter-spacing:3px;margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.related-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.related-card{
+  display:block;padding:16px 18px;
+  background:rgba(13,13,13,.9);border:1px solid var(--border);
+  border-radius:8px;text-decoration:none;transition:all .25s;
+  position:relative;overflow:hidden;
+}
+.related-card::before{
+  content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+  background:var(--accent);transform:scaleY(0);transition:transform .25s;transform-origin:bottom;
+}
+.related-card:hover{border-color:rgba(0,255,65,.3);background:rgba(0,255,65,.03);transform:translateY(-2px)}
+.related-card:hover::before{transform:scaleY(1)}
+.related-card-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.related-card-date{font-size:8px;color:var(--muted);letter-spacing:1px}
+.related-card-cat{
+  font-size:7px;padding:2px 6px;border-radius:2px;letter-spacing:1px;
+  border:1px solid rgba(0,255,65,.2);color:var(--accent);background:rgba(0,255,65,.06);
+  text-transform:uppercase;
+}
+.related-card-title{font-size:11px;color:var(--bright);line-height:1.4;margin-bottom:6px}
+.related-card-excerpt{font-size:9px;color:var(--muted);line-height:1.6;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.related-card-arrow{font-size:9px;color:var(--accent);margin-top:8px;display:block;letter-spacing:1px}
+.related-empty{font-size:10px;color:var(--muted);text-align:center;padding:20px;letter-spacing:1px}
+
 </style>
 </head>
 <body>
@@ -223,6 +258,60 @@ body::after{
 
 
   
+  <!-- RELATED POSTS -->
+  {% assign related = site.posts | where: "category", page.category | where_exp: "p", "p.url != page.url" | limit: 3 %}
+  {% if related.size > 0 %}
+  <div class="related-section">
+    <div class="related-title">// MORE IN {{ page.category | upcase | replace: '-', ' ' }}</div>
+    <div class="related-grid">
+      {% for post in related %}
+      <a class="related-card" href="{{ post.url | escape }}">
+        <div class="related-card-meta">
+          <span class="related-card-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+          <span class="related-card-cat">{{ post.category | replace: '-', ' ' }}</span>
+        </div>
+        <div class="related-card-title">{{ post.title | escape }}</div>
+        <div class="related-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</div>
+        <span class="related-card-arrow">READ MORE →</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- SAME TAGS (different category) -->
+  {% assign tag_related = "" | split: "" %}
+  {% for tag in page.tags %}
+    {% assign tagged = site.posts | where_exp: "p", "p.url != page.url" | where_exp: "p", "p.category != page.category" %}
+    {% for p in tagged %}
+      {% if p.tags contains tag %}
+        {% unless tag_related contains p %}
+          {% assign tag_related = tag_related | push: p %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+  {% assign tag_related = tag_related | limit: 3 %}
+  {% if tag_related.size > 0 %}
+  <div class="related-section">
+    <div class="related-title">// YOU MIGHT ALSO LIKE</div>
+    <div class="related-grid">
+      {% for post in tag_related %}
+      <a class="related-card" href="{{ post.url | escape }}">
+        <div class="related-card-meta">
+          <span class="related-card-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+          <span class="related-card-cat">{{ post.category | replace: '-', ' ' }}</span>
+        </div>
+        <div class="related-card-title">{{ post.title | escape }}</div>
+        <div class="related-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</div>
+        <span class="related-card-arrow">READ MORE →</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+
   <!-- CONNECT SECTION -->
   <div class="connect-section">
     <div class="connect-title">If you found this useful, follow me for more real-world security and DevOps content — no fluff, just hands-on knowledge from the field.</div>
