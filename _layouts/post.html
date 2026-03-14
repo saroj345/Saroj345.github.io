@@ -99,6 +99,11 @@ a:visited{color:var(--accent)}
 .post-content img{max-width:100%;border-radius:6px;border:1px solid var(--border);margin:16px 0}
 .post-content strong{color:var(--bright)}
 .post-content hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.post-content table{width:100%;border-collapse:collapse;margin:16px 0;font-size:10px}
+.post-content th{padding:10px 14px;border:1px solid var(--border);color:var(--accent);background:#050a05;font-size:9px;letter-spacing:1px;text-align:left;font-weight:bold}
+.post-content td{padding:9px 14px;border:1px solid var(--border);color:var(--text);background:#0a0a0a;vertical-align:top}
+.post-content tr:hover td{background:rgba(0,255,65,.03)}
+.post-content thead tr{border-bottom:2px solid rgba(0,255,65,.3)}
 
 /* POST NAV */
 .post-nav{
@@ -215,6 +220,7 @@ body::after{
     </a>
     {% endif %}
   </div>
+
 
   
   <!-- CONNECT SECTION -->
