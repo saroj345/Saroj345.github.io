@@ -411,5 +411,3 @@ IAST (Interactive Application Security Testing) sits between SAST and DAST — a
 Security is not a checkbox. It is a culture that lives in every commit, every pipeline gate, and every production alert. The goal is not to find the perfect tool — it is to build a system where vulnerabilities have nowhere to hide.
 
 Start small. Automate ruthlessly. Tune continuously.
-
----
