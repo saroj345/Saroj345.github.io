@@ -207,8 +207,8 @@ body::after{
       who does this every day.
     </div>
     <div class="hero-tags">
-      <span class="hero-tag">Penetration Testing</span>
-      <span class="hero-tag">Cloud Security</span>
+      <span class="hero-tag">Low-Level Security</span>
+      <span class="hero-tag">Cloud &amp; IaC Security</span>
       <span class="hero-tag">DevSecOps</span>
       <span class="hero-tag">CTF Writeups</span>
       <span class="hero-tag">Low-Level Systems</span>
@@ -220,7 +220,17 @@ body::after{
   <!-- POSTS -->
   <div class="section-title">latest posts</div>
 
-  <div class="posts">
+  <!-- CATEGORY FILTER -->
+  <div class="cat-filter" id="cat-filter">
+    <button class="cat-btn active" onclick="filterCat('all', this)">All Posts</button>
+    <button class="cat-btn" onclick="filterCat('devsecops', this)">DevSecOps</button>
+    <button class="cat-btn" onclick="filterCat('cloud-iac-security', this)">Cloud &amp; IaC Security</button>
+    <button class="cat-btn" onclick="filterCat('low-level-security', this)">Low-Level Security</button>
+    <button class="cat-btn" onclick="filterCat('ctf-writeups', this)">CTF Writeups</button>
+    <button class="cat-btn" onclick="filterCat('siem-monitoring', this)">SIEM &amp; Monitoring</button>
+  </div>
+
+  <div class="posts" id="posts-list">
     {% assign posts = site.posts %}
     {% if posts.size > 0 %}
       {% for post in posts %}
