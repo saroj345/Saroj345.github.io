@@ -1,1 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN"/>
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"/>
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()"/>
+<title>Blog — Saroj Khadka</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000000;--panel:#0a0a0a;--border:#1a3d2e;
+  --accent:#00ff41;--text:#ccffcc;--muted:#2d6b2d;--bright:#e0ffe0;
+}
+html,body{min-height:100%;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text)}
+a{color:var(--accent);text-decoration:none}
+a:visited{color:var(--accent)}
+a{color:var(--accent);text-decoration:none}
+a:visited{color:var(--accent)}
 
+/* ── MATRIX CANVAS ── */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.12}
+
+/* ── LAYOUT ── */
+.page{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:40px 20px 80px}
+
+/* ── TOPBAR ── */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;margin-bottom:40px;
+  background:rgba(9,14,26,.95);border:1px solid var(--border);
+  border-radius:8px;backdrop-filter:blur(20px);
+  box-shadow:0 0 30px rgba(0,255,65,.08);
+}
+.topbar-logo{font-family:'Orbitron';font-size:15px;font-weight:900;color:var(--accent);
+  letter-spacing:3px;text-shadow:0 0 16px var(--accent)}
+.topbar-nav{display:flex;gap:20px;align-items:center}
+.topbar-nav a{
+  font-size:10px;color:var(--muted);letter-spacing:2px;text-decoration:none;
+  transition:color .2s;text-transform:uppercase;
+}
+.topbar-nav a:hover{color:var(--accent)}
+.topbar-nav a.active{color:var(--accent)}
+
+/* ── HERO ── */
+.hero{
+  padding:40px 32px;margin-bottom:36px;
+  background:rgba(0,255,65,.03);border:1px solid var(--border);
+  border-radius:8px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+}
+.hero-label{font-size:9px;color:var(--muted);letter-spacing:3px;margin-bottom:12px}
+.hero-title{
+  font-family:'Orbitron';font-size:28px;font-weight:900;
+  color:var(--accent);letter-spacing:2px;line-height:1.2;
+  text-shadow:0 0 30px rgba(0,255,65,.4);margin-bottom:10px;
+}
+.hero-sub{font-size:12px;color:var(--text);line-height:1.8;max-width:560px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hero-tag{
+  font-size:9px;padding:4px 10px;border-radius:3px;letter-spacing:1px;
+  border:1px solid rgba(0,255,65,.2);background:rgba(0,255,65,.05);color:var(--accent);
+}
+
+/* ── SECTION TITLE ── */
+.section-title{
+  font-size:9px;color:var(--muted);letter-spacing:3px;
+  text-transform:uppercase;margin-bottom:16px;padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.section-title::before{content:'//';color:var(--accent)}
+
+/* ── POST CARD ── */
+.posts{display:flex;flex-direction:column;gap:14px}
+.post-card{
+  padding:22px 26px;background:rgba(13,13,13,.9);
+  border:1px solid var(--border);border-radius:8px;
+  cursor:pointer;text-decoration:none;display:block;
+  transition:all .25s;position:relative;overflow:hidden;
+}
+.post-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:var(--accent);transform:scaleY(0);transition:transform .25s;
+}
+.post-card:hover{
+  border-color:rgba(0,255,65,.35);
+  background:rgba(0,255,65,.04);
+  transform:translateX(6px);
+  box-shadow:0 0 24px rgba(0,255,65,.08);
+}
+.post-card:hover::before{transform:scaleY(1)}
+.post-meta{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.post-date{font-size:9px;color:var(--muted);letter-spacing:1px}
+.post-tag{
+  font-size:8px;padding:2px 8px;border-radius:2px;letter-spacing:1px;
+  border:1px solid rgba(0,255,65,.2);color:var(--accent);background:rgba(0,255,65,.06);
+}
+.post-title{
+  font-family:'Orbitron';font-size:14px;font-weight:700;
+  color:var(--bright);letter-spacing:1px;line-height:1.4;margin-bottom:8px;
+  transition:color .2s;
+}
+.post-card:hover .post-title{color:var(--accent);text-shadow:0 0 12px rgba(0,255,65,.3)}
+.post-excerpt{font-size:10px;color:var(--muted);line-height:1.8}
+.post-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:14px;padding-top:10px;border-top:1px solid rgba(255,255,255,.04);
+}
+.post-read{font-size:9px;color:var(--muted);letter-spacing:1px}
+.post-arrow{font-size:11px;color:var(--accent);transition:transform .2s}
+.post-card:hover .post-arrow{transform:translateX(5px)}
+
+/* ── EMPTY STATE ── */
+.empty-state{
+  text-align:center;padding:60px 20px;
+  border:1px dashed var(--border);border-radius:8px;
+}
+.empty-icon{font-size:36px;margin-bottom:16px}
+.empty-title{font-family:'Orbitron';font-size:13px;color:var(--accent);letter-spacing:2px;margin-bottom:8px}
+.empty-sub{font-size:10px;color:var(--muted);line-height:1.8}
+.empty-cmd{
+  margin-top:16px;display:inline-block;
+  font-size:10px;color:var(--accent);
+  padding:8px 16px;border:1px solid rgba(0,255,65,.2);
+  border-radius:4px;background:rgba(0,255,65,.05);
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.footer-left{font-size:9px;color:var(--muted);letter-spacing:1px;line-height:1.8}
+.footer-right{display:flex;gap:16px}
+.footer-right a{font-size:9px;color:var(--muted);text-decoration:none;letter-spacing:1px;transition:color .2s}
+.footer-right a:hover{color:var(--accent)}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#000}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+
+/* ── SCAN LINE ── */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
+}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.cursor{animation:blink 1s infinite;color:var(--accent)}
+
+/* ── CATEGORY FILTER ── */
+.cat-filter{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;
+}
+.cat-btn{
+  font-size:9px;padding:5px 14px;border-radius:3px;letter-spacing:1.5px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--muted);cursor:pointer;font-family:'JetBrains Mono';
+  transition:all .2s;text-transform:uppercase;
+}
+.cat-btn:hover{border-color:rgba(0,255,65,.3);color:var(--text)}
+.cat-btn.active{
+  border-color:var(--accent);color:var(--accent);
+  background:rgba(0,255,65,.08);
+  box-shadow:0 0 10px rgba(0,255,65,.1);
+}
+.post-card{transition:all .25s,opacity .3s}
+.post-card.hidden{display:none}
+
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="page">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-logo">SAROJ KHADKA</div>
+    <nav class="topbar-nav">
+      <a href="/">~/home</a>
+      <a href="/blog/" class="active">~/blog</a>
+      <a href="mailto:hellosarojkhadka@gmail.com">~/hireme</a>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">// BLOG — FIELD NOTES FROM THE DIGITAL BATTLEFIELD</div>
+    <div class="hero-title">SAROJ'S LOGS<span class="cursor">_</span></div>
+    <div class="hero-sub">
+      Real-world security engineering — from penetration testing war stories
+      to DevOps hardening guides. No fluff, just hands-on knowledge from someone
+      who does this every day.
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag">Penetration Testing</span>
+      <span class="hero-tag">Cloud Security</span>
+      <span class="hero-tag">DevSecOps</span>
+      <span class="hero-tag">CTF Writeups</span>
+      <span class="hero-tag">Low-Level Systems</span>
+      <span class="hero-tag">AI Security</span>
+      <span class="hero-tag">Nepal Tech</span>
+    </div>
+  </div>
+
+  <!-- POSTS -->
+  <div class="section-title">latest posts</div>
+
+  <div class="posts">
+    {% assign posts = site.posts %}
+    {% if posts.size > 0 %}
+      {% for post in posts %}
+      <a class="post-card" href="{{ post.url | escape }}" data-category="{{ post.category | escape | default: 'uncategorized' }}">
+        <div class="post-meta">
+          <span class="post-date">{{ post.date | date: "%Y-%m-%d" | escape }}</span>
+          {% if post.tags %}
+            {% for tag in post.tags limit:3 %}
+            <span class="post-tag">{{ tag | escape }}</span>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="post-title">{{ post.title | escape }}</div>
+        <div class="post-excerpt">
+          {% if post.excerpt %}{{ post.excerpt | strip_html | truncatewords: 30 }}
+          {% else %}{{ post.content | strip_html | truncatewords: 30 }}{% endif %}
+        </div>
+        <div class="post-footer">
+          <span class="post-read">
+            {% assign words = post.content | number_of_words %}
+            {% assign mins = words | divided_by: 200 | plus: 1 %}
+            ~{{ mins | escape }} min read · {{ words | escape }} words
+          </span>
+          <span class="post-arrow">→</span>
+        </div>
+      </a>
+      {% endfor %}
+    {% else %}
+      <div class="empty-state">
+        <div class="empty-icon">📡</div>
+        <div class="empty-title">NO POSTS YET</div>
+        <div class="empty-sub">
+          First post incoming...<br>
+          Warming up the terminal. Loading war stories.
+        </div>
+        <div class="empty-cmd">$ git commit -m "first post"</div>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      SAROJ KHADKA · SECURITY &amp; DEVOPS ENGINEER<br>
+      KATHMANDU, NEPAL 🇳🇵 · JAI MAHAKALI
+    </div>
+    <div class="footer-right">
+      <a href="/">Portfolio</a>
+      <a href="mailto:hellosarojkhadka@gmail.com">Hire Me</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+// ── CATEGORY FILTER ──────────────────────────────────────
+function filterCat(cat, btn) {
+  // update active button
+  document.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+
+  // show/hide posts
+  document.querySelectorAll('.post-card').forEach(function(card){
+    if(cat === 'all' || card.dataset.category === cat){
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  // show empty state if no posts in category
+  var visible = document.querySelectorAll('.post-card:not(.hidden)').length;
+  var empty = document.getElementById('cat-empty');
+  if(empty) empty.style.display = visible === 0 ? 'block' : 'none';
+}
+
+// Matrix rain background
+(function(){
+  var c = document.getElementById('bg-canvas');
+  if(!c) return;
+  var ctx = c.getContext('2d');
+  function rsz(){ c.width=window.innerWidth; c.height=window.innerHeight; }
+  rsz(); window.addEventListener('resize', rsz);
+  var drops = Array(Math.floor(window.innerWidth/16)).fill(1);
+  var chars = '01アカタハSAROJ⚔NEPAL</>{}[]';
+  setInterval(function(){
+    ctx.fillStyle='rgba(0,0,0,.12)';
+    ctx.fillRect(0,0,c.width,c.height);
+    drops.forEach(function(y,i){
+      ctx.font="11px 'JetBrains Mono'";
+      ctx.fillStyle='rgba(0,255,65,'+(Math.random()*.06+.02)+')';
+      ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*16,y*16);
+      if(y*16>c.height&&Math.random()>.97) drops[i]=0;
+      drops[i]++;
+    });
+  }, 60);
+})();
+</script>
+</body>
+</html>
