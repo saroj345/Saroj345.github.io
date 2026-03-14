@@ -15,3 +15,6 @@ exclude:
 # Markdown settings
 markdown: kramdown
 highlighter: rouge
+
+# Show posts with future dates
+future: true
