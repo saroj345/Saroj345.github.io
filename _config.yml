@@ -7,7 +7,7 @@ email: hellosarojkhadka@gmail.com
 
 permalink: /blog/:year/:month/:day/:title
 
-# Exclude heavy files from Jekyll processing
+# Exclude files from Jekyll processing
 exclude:
   - "*.mp3"
   - README.md

@@ -76,10 +76,10 @@ var deflectTriggered = false;
 
   // ── MULTIPLE ATTACKERS from different positions ──
   var attackers = [
-    { id:0, side:'left',  ex:0.05, ey:0.38, label:'HACKER #1',  shape:'skull', color:'#ff3333', hp:100, bobOffset:0,   spawnInterval:18, lastSpawn:0, defeated:false },
-    { id:1, side:'left',  ex:0.05, ey:0.58, label:'HACKER #2',  shape:'skull', color:'#ff5500', hp:100, bobOffset:1.2, spawnInterval:22, lastSpawn:18, defeated:false },
-    { id:2, side:'top',   ex:0.35, ey:0.12, label:'HACKER #3',  shape:'skull', color:'#cc00ff', hp:100, bobOffset:2.1, spawnInterval:26, lastSpawn:35, defeated:false },
-    { id:3, side:'top',   ex:0.65, ey:0.12, label:'HACKER #4',  shape:'skull', color:'#ff0066', hp:100, bobOffset:0.8, spawnInterval:30, lastSpawn:55, defeated:false },
+    { id:0, side:'left',  ex:0.05, ey:0.38, label:'HACKER #1',  emoji:'🥷',  color:'#ff3333', hp:100, bobOffset:0,   spawnInterval:18, lastSpawn:0, defeated:false },
+    { id:1, side:'left',  ex:0.05, ey:0.58, label:'HACKER #2',  emoji:'🕵️',  color:'#ff5500', hp:100, bobOffset:1.2, spawnInterval:22, lastSpawn:18, defeated:false },
+    { id:2, side:'top',   ex:0.35, ey:0.12, label:'HACKER #3',  emoji:'👺',  color:'#cc00ff', hp:100, bobOffset:2.1, spawnInterval:26, lastSpawn:35, defeated:false },
+    { id:3, side:'top',   ex:0.65, ey:0.12, label:'HACKER #4',  emoji:'🤖',  color:'#ff0066', hp:100, bobOffset:0.8, spawnInterval:30, lastSpawn:55, defeated:false },
   ];
 
   var defender = { ex:0.88, ey:0.5 };
@@ -123,60 +123,10 @@ var deflectTriggered = false;
   }
 
   function drawEmoji(emoji, x, y, size) {
-    // Draw as geometric shape instead of emoji for cross-browser compatibility
-    var r = size * 0.35;
     ctx.save();
-    ctx.translate(x, y);
-    // head circle
-    ctx.beginPath();
-    ctx.arc(0, -r*0.3, r*0.55, 0, Math.PI*2);
-    ctx.fillStyle = '#1a1a1a';
-    ctx.fill();
-    ctx.strokeStyle = ctx.fillStyle = '#cc0000';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-    // eyes
-    ctx.fillStyle = '#ff3333';
-    ctx.beginPath(); ctx.arc(-r*0.2, -r*0.35, r*0.1, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc( r*0.2, -r*0.35, r*0.1, 0, Math.PI*2); ctx.fill();
-    // body
-    ctx.strokeStyle = '#cc0000'; ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(0, r*0.3);
-    ctx.lineTo(0, r*0.9);
-    ctx.moveTo(-r*0.5, r*0.5); ctx.lineTo(r*0.5, r*0.5);
-    ctx.moveTo(0, r*0.9); ctx.lineTo(-r*0.35, r*1.4);
-    ctx.moveTo(0, r*0.9); ctx.lineTo( r*0.35, r*1.4);
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function drawDefender(x, y, size) {
-    var r = size * 0.35;
-    ctx.save();
-    ctx.translate(x, y);
-    // head
-    ctx.beginPath();
-    ctx.arc(0, -r*0.3, r*0.55, 0, Math.PI*2);
-    ctx.fillStyle = '#0a1a0a';
-    ctx.fill();
-    ctx.strokeStyle = '#00ff41';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-    // eyes - green
-    ctx.fillStyle = '#00ff41';
-    ctx.beginPath(); ctx.arc(-r*0.2, -r*0.35, r*0.1, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc( r*0.2, -r*0.35, r*0.1, 0, Math.PI*2); ctx.fill();
-    // body
-    ctx.strokeStyle = '#00ff41'; ctx.lineWidth = 2;
-    ctx.shadowColor = '#00ff41'; ctx.shadowBlur = 8;
-    ctx.beginPath();
-    ctx.moveTo(0, r*0.3); ctx.lineTo(0, r*0.9);
-    ctx.moveTo(-r*0.5, r*0.5); ctx.lineTo(r*0.5, r*0.5);
-    ctx.moveTo(0, r*0.9); ctx.lineTo(-r*0.35, r*1.4);
-    ctx.moveTo(0, r*0.9); ctx.lineTo( r*0.35, r*1.4);
-    ctx.stroke();
-    ctx.shadowBlur = 0;
+    ctx.font = size+'px serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(emoji, x, y);
     ctx.restore();
   }
 
@@ -276,7 +226,7 @@ var deflectTriggered = false;
       var bob = Math.sin(t*1.8 + atk.bobOffset) * (atk.defeated?0:5);
       ctx.save();
       ctx.globalAlpha = atk.defeated ? 0.3 : 1;
-      drawEmoji(atk.shape, ax, ay+bob, atk.defeated?36:44);
+      drawEmoji(atk.emoji, ax, ay+bob, atk.defeated?36:44);
       ctx.restore();
       drawLabel(atk.label, ax, ay+bob+30, atk.defeated?'#444':atk.color);
       if(!atk.defeated) drawHPBar(ax, ay+bob+38, atk.hp, atk.color);
@@ -289,7 +239,7 @@ var deflectTriggered = false;
     drawShield(defX-42+sx, defY+Math.sin(t*1.5)*4+sy, t);
     ctx.save();
     ctx.shadowColor='#00ff41'; ctx.shadowBlur=14;
-    drawDefender(defX+sx, defY+Math.sin(t*1.5)*4+sy, 60);
+    drawEmoji('🧑‍💻', defX+sx, defY+Math.sin(t*1.5)*4+sy, 60);
     ctx.shadowBlur=0; ctx.restore();
     drawLabel('SAROJ · 1 vs '+attackers.length, defX, defY+50, '#00ff41');
     drawHPBar(defX, defY+58, 100, '#00ff41');
@@ -342,14 +292,9 @@ var deflectTriggered = false;
       ctx.save();
       ctx.globalAlpha = k.hit ? Math.max(0,k.alpha) : 1;
       ctx.translate(k.x,k.y); ctx.rotate(k.angle);
-      // Draw knife as shape
-      ctx.strokeStyle = k.color||'#ff4444';
-      ctx.lineWidth = 2.5;
-      ctx.shadowColor = k.color||'#ff4444'; ctx.shadowBlur=12;
-      ctx.beginPath();
-      ctx.moveTo(-10, 0); ctx.lineTo(10, 0);
-      ctx.moveTo(5, -4); ctx.lineTo(10, 0); ctx.lineTo(5, 4);
-      ctx.stroke();
+      ctx.font='22px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.shadowColor=k.color||'#ff4444'; ctx.shadowBlur=12;
+      ctx.fillText('🔪',0,0);
       ctx.shadowBlur=0; ctx.restore();
     });
 
@@ -372,7 +317,7 @@ var deflectTriggered = false;
 
     // Nepal corner
     ctx.save();
-    ctx.fillStyle='#dc143c'; ctx.fillRect(10,18,12,16); ctx.fillStyle='#003893'; ctx.fillRect(22,18,12,16);
+    ctx.font='18px serif'; ctx.fillText('🇳🇵',16,30);
     ctx.font="9px 'JetBrains Mono'"; ctx.fillStyle='rgba(0,255,65,.45)';
     ctx.fillText('NEPAL · GURKHA NATION',44,24);
     ctx.fillStyle='rgba(0,255,65,.25)';
