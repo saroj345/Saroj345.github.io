@@ -12,7 +12,6 @@ exclude:
   - main.js
   - "*.mp3"
   - README.md
-  - index.html
 
 # Markdown settings
 markdown: kramdown
