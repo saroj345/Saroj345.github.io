@@ -1,0 +1,18 @@
+title: Saroj Khadka
+description: Security & DevOps Engineer from Nepal
+url: "https://saroj345.github.io"
+baseurl: ""
+author: Saroj Khadka
+email: hellosarojkhadka@gmail.com
+
+permalink: /blog/:year/:month/:day/:title
+
+# Exclude heavy files from Jekyll processing
+exclude:
+  - main.js
+  - "*.mp3"
+  - README.md
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
