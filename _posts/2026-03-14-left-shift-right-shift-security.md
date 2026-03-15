@@ -4,7 +4,7 @@ title: "Are You Defending Your Code at the Right Stage?"
 date: 2026-03-14
 tags: [DevSecOps, Security, CI/CD, SDLC]
 category: devsecops
-excerpt: "Most teams defend their code at the wrong stage — too late, too noisy, too reactive. Here's how Shift Left and Shift Right together give you complete coverage across every stage of your pipeline."
+excerpt: "Most teams defend their code at the wrong stage - too late, too noisy, too reactive. Here's how Shift Left and Shift Right together give you complete coverage across every stage of your pipeline."
 ---
 
 Security used to be a gate at the end of the pipeline. Developers shipped code, and security did a final scan before deployment. That model is dead.
@@ -79,7 +79,7 @@ Add this to your `.github/workflows/security.yml`:
 ```yaml
 # Option 1 — Container-based projects (scan Docker image)
 - name: Trivy image scan
-  uses: aquasecurity/trivy-action@0.69.3
+  uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
   with:
     scan-type: 'image'
     image-ref: 'myapp:latest'
@@ -90,7 +90,7 @@ Add this to your `.github/workflows/security.yml`:
 ```yaml
 # Option 2 — Non-container projects (scan source code + dependencies)
 - name: Trivy filesystem scan
-  uses: aquasecurity/trivy-action@0.69.3
+  uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
   with:
     scan-type: 'fs'
     scan-ref: '.'
