@@ -9,6 +9,7 @@ permalink: /blog/:year/:month/:day/:title
 
 # Exclude files from Jekyll processing
 exclude:
+  - "*.mp3"
   - README.md
 
 # Markdown settings
@@ -18,6 +19,78 @@ highlighter: rouge
 kramdown:
   parse_block_html: true
   input: GFM
+  # HTML filter — strip dangerous tags from markdown content
+  html_to_native: false
+
+# Jekyll sanitize filter settings
+liquid:
+  error_mode: strict
+
+# Allowed HTML tags in markdown content
+# Strips script, iframe, object, embed etc.
+sanitize:
+  allowedTags:
+    - p
+    - br
+    - h1
+    - h2
+    - h3
+    - h4
+    - h5
+    - h6
+    - ul
+    - ol
+    - li
+    - strong
+    - em
+    - code
+    - pre
+    - blockquote
+    - a
+    - img
+    - table
+    - thead
+    - tbody
+    - tr
+    - th
+    - td
+    - hr
+    - div
+    - span
+    - svg
+    - rect
+    - text
+    - line
+    - circle
+    - path
+    - defs
+    - filter
+    - marker
+    - linearGradient
+    - stop
+    - feMerge
+    - feMergeNode
+    - feGaussianBlur
+  allowedAttributes:
+    a:
+      - href
+      - title
+      - target
+      - rel
+    img:
+      - src
+      - alt
+      - width
+      - height
+    div:
+      - style
+      - class
+    svg:
+      - viewBox
+      - xmlns
+      - style
+      - width
+      - height
 
 # Show posts with future dates
 future: true
