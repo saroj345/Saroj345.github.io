@@ -5,6 +5,7 @@ layout: null
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN"/>
@@ -238,7 +239,7 @@ body::after{
   </div>
 
   <div class="post-content">
-    {{ content }}
+    {{ content | remove: "<script" | remove: "</script>" | remove: "<iframe" | remove: "</iframe>" | remove: "javascript:" | remove: "onload=" | remove: "onerror=" | remove: "onclick=" | remove: "onmouseover=" }}
   </div>
 
   <div class="post-nav">
@@ -262,13 +263,13 @@ body::after{
   {% assign related = site.posts | where: "category", page.category | where_exp: "p", "p.url != page.url" | limit: 3 %}
   {% if related.size > 0 %}
   <div class="related-section">
-    <div class="related-title">// MORE IN {{ page.category | upcase | replace: '-', ' ' }}</div>
+    <div class="related-title">// MORE IN {{ page.category | upcase | replace: '-', ' ' | escape }}</div>
     <div class="related-grid">
       {% for post in related %}
       <a class="related-card" href="{{ post.url | escape }}">
         <div class="related-card-meta">
-          <span class="related-card-date">{{ post.date | date: "%Y-%m-%d" }}</span>
-          <span class="related-card-cat">{{ post.category | replace: '-', ' ' }}</span>
+          <span class="related-card-date">{{ post.date | date: "%Y-%m-%d" | escape }}</span>
+          <span class="related-card-cat">{{ post.category | replace: '-', ' ' | escape }}</span>
         </div>
         <div class="related-card-title">{{ post.title | escape }}</div>
         <div class="related-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</div>
@@ -299,8 +300,8 @@ body::after{
       {% for post in tag_related %}
       <a class="related-card" href="{{ post.url | escape }}">
         <div class="related-card-meta">
-          <span class="related-card-date">{{ post.date | date: "%Y-%m-%d" }}</span>
-          <span class="related-card-cat">{{ post.category | replace: '-', ' ' }}</span>
+          <span class="related-card-date">{{ post.date | date: "%Y-%m-%d" | escape }}</span>
+          <span class="related-card-cat">{{ post.category | replace: '-', ' ' | escape }}</span>
         </div>
         <div class="related-card-title">{{ post.title | escape }}</div>
         <div class="related-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</div>
