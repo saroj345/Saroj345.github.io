@@ -9,7 +9,7 @@ description: "How a configurable module endpoint in Weaviate Cloud exposed inter
 
 In March 2026 I reported a Server-Side Request Forgery issue in Weaviate Cloud to their Vulnerability Disclosure Program. By pointing a module's configurable endpoint at a listener I controlled, I was able to make the managed service send internal requests outbound — revealing details about the private infrastructure it runs on.
 
-Weaviate triaged the report within a week and shipped mitigations in [PR #10878](https://github.com/weaviate/weaviate/pull/10878), merged March 27, 2026. The finding is acknowledged in Weaviate's [security hall of fame](https://github.com/weaviate/security-hall-of-fame).
+Weaviate triaged the report within a week and shipped mitigations in [PR #10878](https://github.com/weaviate/weaviate/pull/10878), merged March 27, 2026. The finding is acknowledged in Weaviate's [security hall of fame](https://github.com/weaviate/security-hall-of-fame) under my hackerone username jorsec.
 
 ## Background: The BaseURL Feature
 
