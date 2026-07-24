@@ -6,7 +6,7 @@ category: devsecops
 tags: [GitOps, Kubernetes, DevOps]
 ---
 
-Both FluxCD and ArgoCD are CNCF-graduated GitOps tools for Kubernetes. Both watch a Git repository and reconcile your cluster to match it. Both are mature, well-supported, and running production workloads at serious scale. So the interesting question isn't "which is better" — it's "what are the actual differences, and which one fits how my team works?"
+Both FluxCD and ArgoCD are CNCF-graduated GitOps tools for Kubernetes. Both watch a Git repository and reconcile your cluster to match it. Both are mature, well-supported, and running production workloads at serious scale. So the interesting question isn't "which is better" it's "what are the actual differences, and which one fits how my team works?"
 
 ![FluxCD vs ArgoCD: a technical comparison covering operational philosophy, architecture, core features, dependency ordering, multi-cluster models, and a decision matrix](/assets/fluxcd-vs-argocd-infographic.svg)
 
@@ -86,7 +86,7 @@ Practically, "Flux has no UI" is outdated. If you want a web dashboard with SSO 
 
 **FluxCD's reconciliation model is entirely pull-based.** Everything lives inside the cluster; there is no external API to expose, which reduces attack surface. The only outbound mutation is optional image automation, which writes updated image references back to *Git* — never directly to the cluster. Git remains the source of truth throughout.
 
-**ArgoCD** is also pull-based for reconciliation, but its API server is a control plane you interact with from outside. That's what makes the UI possible — and it's also a component you need to secure, expose, and authenticate against.
+**ArgoCD** is also pull-based for reconciliation, but its API server is a control plane you interact with from outside. That's what makes the UI possible  and it's also a component you need to secure, expose, and authenticate against.
 
 A nuance worth stating precisely: Flux has no *centralized API or UI control plane*. It absolutely has controllers, and those controllers are a control plane in the Kubernetes sense — they just run entirely inside the managed cluster.
 
@@ -122,7 +122,7 @@ ArgoCD's `ApplicationSet` deserves more attention than most comparisons give it.
 
 If you're running "the same app across thirty clusters" or "preview environments per PR," this is a genuinely large productivity difference.
 
-**Flux has no first-party equivalent abstraction.** Teams typically achieve similar outcomes with Kustomize overlays, Flux's own Git generators, Terraform, Cluster API, or scripting — all workable, none as turnkey.
+**Flux has no first-party equivalent abstraction.** Teams typically achieve similar outcomes with Kustomize overlays, Flux's own Git generators, Terraform, Cluster API, or scripting  all workable, none as turnkey.
 
 > **Verdict:** clear win for ArgoCD.
 
@@ -295,25 +295,9 @@ Many teams choose on ecosystem alignment rather than feature-by-feature comparis
 
 ## Closing Thought
 
-There is no wrong answer here. Both projects are CNCF-graduated, actively maintained, and running production workloads at large scale. The failure mode isn't picking the "wrong" tool — it's picking a tool that doesn't match how your team actually works, and then fighting it.
+There is no wrong answer here. Both projects are CNCF-graduated, actively maintained, and running production workloads at large scale. The failure mode isn't picking the "wrong" tool it's picking a tool that doesn't match how your team actually works, and then fighting it.
 
 If you want a single opinionated platform with everything in the box, ArgoCD. If you want composable controllers and the freedom to assemble your own stack, Flux. Try both on a non-critical cluster for a week before committing; the difference in feel becomes obvious fast.
 
 ---
 
-<!--
-Asset note (delete before publishing):
-
-Place both files in /assets/ at your repo root:
-  /assets/fluxcd-vs-argocd-infographic.svg
-  /assets/fluxcd-vs-argocd-infographic.png
-
-The SVG is referenced as an <img> src, so your _config.yml sanitize
-allowlist never touches its internals, and your CSP (img-src 'self')
-permits it. It is built at 860px to match .post-content width, and
-uses the theme tokens: #000 bg, #00ff41 accent, #ccffcc text,
-#1a3d2e border, JetBrains Mono.
-
-If you prefer the raster version:
-![FluxCD vs ArgoCD](/assets/fluxcd-vs-argocd-infographic.png)
--->
