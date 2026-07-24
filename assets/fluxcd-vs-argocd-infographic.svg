@@ -1,0 +1,285 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="2180" viewBox="0 0 860 2180" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace" role="img" aria-labelledby="t d">
+<title id="t">FluxCD vs ArgoCD: technical GitOps comparison</title>
+<desc id="d">A comparison of FluxCD and ArgoCD covering operational philosophy, architecture, core technical features, dependency ordering, multi-cluster models, and a decision matrix.</desc>
+<defs>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#2d6b2d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+
+<rect width="860" height="2180" fill="#000000"/>
+
+<rect x="20" y="20" width="820" height="86" rx="8" fill="#00ff410a" stroke="#1a3d2e"/>
+<rect x="20" y="20" width="820" height="2" fill="#00ff41" opacity="0.55"/>
+<text x="430" y="56" text-anchor="middle" font-family="Orbitron, 'JetBrains Mono', monospace" font-size="21" font-weight="900" fill="#00ff41" letter-spacing="2">FLUXCD  VS  ARGOCD</text>
+<text x="430" y="82" text-anchor="middle" font-size="11" fill="#2d6b2d" letter-spacing="1.5">// TECHNICAL COMPARISON OF TWO CNCF-GRADUATED GITOPS TOOLS</text>
+
+<text x="20" y="142" font-size="10" fill="#2d6b2d" letter-spacing="3">// OPERATIONAL PHILOSOPHY</text>
+<line x1="20" y1="150" x2="840" y2="150" stroke="#1a3d2e"/>
+
+<rect x="20" y="164" width="402" height="104" rx="8" fill="#0d0d0de6" stroke="#1a3d2e"/>
+<rect x="20" y="164" width="2" height="104" fill="#00ff41" opacity="0.6"/>
+<text x="42" y="192" font-size="12" font-weight="700" fill="#e0ffe0" letter-spacing="1">FLUXCD — THE TOOLKIT</text>
+<text x="42" y="218" font-size="10.5" fill="#ccffcc">Asks engineers to compose GitOps from</text>
+<text x="42" y="237" font-size="10.5" fill="#ccffcc">independent Kubernetes primitives that</text>
+<text x="42" y="256" font-size="10.5" fill="#ccffcc">you assemble into your own pipeline.</text>
+
+<rect x="438" y="164" width="402" height="104" rx="8" fill="#0d0d0de6" stroke="#1a3d2e"/>
+<rect x="438" y="164" width="2" height="104" fill="#00d4ff" opacity="0.6"/>
+<text x="460" y="192" font-size="12" font-weight="700" fill="#e0ffe0" letter-spacing="1">ARGOCD — THE PLATFORM</text>
+<text x="460" y="218" font-size="10.5" fill="#ccffcc">Asks engineers to adopt a cohesive</text>
+<text x="460" y="237" font-size="10.5" fill="#ccffcc">application management platform with</text>
+<text x="460" y="256" font-size="10.5" fill="#ccffcc">an opinionated deployment workflow.</text>
+
+<text x="20" y="312" font-size="10" fill="#2d6b2d" letter-spacing="3">// ARCHITECTURE</text>
+<line x1="20" y1="320" x2="840" y2="320" stroke="#1a3d2e"/>
+
+<rect x="20" y="334" width="402" height="228" rx="8" fill="#0d0d0de6" stroke="#1a3d2e"/>
+<text x="221" y="362" text-anchor="middle" font-size="12" font-weight="700" fill="#00ff41" letter-spacing="1">FLUXCD — GITOPS TOOLKIT</text>
+
+<rect x="38" y="378" width="180" height="48" rx="5" fill="#00ff410d" stroke="#1a3d2e"/>
+<text x="128" y="398" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e0ffe0">source-controller</text>
+<text x="128" y="415" text-anchor="middle" font-size="9.5" fill="#2d6b2d">Git, Helm, OCI, S3</text>
+
+<rect x="226" y="378" width="180" height="48" rx="5" fill="#00ff410d" stroke="#1a3d2e"/>
+<text x="316" y="398" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e0ffe0">kustomize-controller</text>
+<text x="316" y="415" text-anchor="middle" font-size="9.5" fill="#2d6b2d">Builds overlays</text>
+
+<rect x="38" y="434" width="180" height="48" rx="5" fill="#00ff410d" stroke="#1a3d2e"/>
+<text x="128" y="454" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e0ffe0">helm-controller</text>
+<text x="128" y="471" text-anchor="middle" font-size="9.5" fill="#2d6b2d">Manages releases</text>
+
+<rect x="226" y="434" width="180" height="48" rx="5" fill="#00ff410d" stroke="#1a3d2e"/>
+<text x="316" y="454" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e0ffe0">notification-controller</text>
+<text x="316" y="471" text-anchor="middle" font-size="9.5" fill="#2d6b2d">Alerts, webhooks</text>
+
+<rect x="38" y="490" width="368" height="48" rx="5" fill="#00ff4108" stroke="#1a3d2e"/>
+<text x="222" y="510" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e0ffe0">image-reflector + image-automation</text>
+<text x="222" y="527" text-anchor="middle" font-size="9.5" fill="#2d6b2d">Scans registries, writes tags back to Git</text>
+
+<text x="221" y="553" text-anchor="middle" font-size="9.5" fill="#2d6b2d">$ install only what you need</text>
+
+<rect x="438" y="334" width="402" height="228" rx="8" fill="#0d0d0de6" stroke="#1a3d2e"/>
+<text x="639" y="362" text-anchor="middle" font-size="12" font-weight="700" fill="#00d4ff" letter-spacing="1">ARGOCD — INTEGRATED PLATFORM</text>
+
+<rect x="456" y="378" width="180" height="48" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="546" y="398" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e0ffe0">api-server</text>
+<text x="546" y="415" text-anchor="middle" font-size="9.5" fill="#2d6b2d">UI, CLI, API, RBAC</text>
+
+<rect x="644" y="378" width="180" height="48" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="734" y="398" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e0ffe0">repo-server</text>
+<text x="734" y="415" text-anchor="middle" font-size="9.5" fill="#2d6b2d">Renders manifests</text>
+
+<rect x="456" y="434" width="180" height="48" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="546" y="454" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e0ffe0">application-controller</text>
+<text x="546" y="471" text-anchor="middle" font-size="9.5" fill="#2d6b2d">Syncs and reconciles</text>
+
+<rect x="644" y="434" width="180" height="48" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="734" y="454" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e0ffe0">redis</text>
+<text x="734" y="471" text-anchor="middle" font-size="9.5" fill="#2d6b2d">Caches manifests</text>
+
+<rect x="456" y="490" width="368" height="48" rx="5" fill="#00d4ff08" stroke="#1a3d2e"/>
+<text x="640" y="510" text-anchor="middle" font-size="10.5" font-weight="700" fill="#e0ffe0">dex (optional)</text>
+<text x="640" y="527" text-anchor="middle" font-size="9.5" fill="#2d6b2d">OIDC and SSO integration</text>
+
+<text x="639" y="553" text-anchor="middle" font-size="9.5" fill="#2d6b2d">$ ships and upgrades as one unit</text>
+
+<text x="20" y="606" font-size="10" fill="#2d6b2d" letter-spacing="3">// CORE TECHNICAL FEATURES</text>
+<line x1="20" y1="614" x2="840" y2="614" stroke="#1a3d2e"/>
+
+<rect x="20" y="628" width="820" height="30" fill="#050a05"/>
+<text x="34" y="648" font-size="9.5" font-weight="700" fill="#00ff41" letter-spacing="1.5">CAPABILITY</text>
+<text x="238" y="648" font-size="9.5" font-weight="700" fill="#00ff41" letter-spacing="1.5">FLUXCD</text>
+<text x="552" y="648" font-size="9.5" font-weight="700" fill="#00d4ff" letter-spacing="1.5">ARGOCD</text>
+
+<rect x="20" y="658" width="820" height="54" fill="#0a0a0a"/>
+<text x="34" y="682" font-size="10" font-weight="700" fill="#e0ffe0">SSO &amp; audit</text>
+<text x="238" y="682" font-size="10" fill="#ccffcc">OIDC and Kubernetes RBAC</text>
+<text x="238" y="699" font-size="10" fill="#ccffcc">via the Flux Operator UI.</text>
+<text x="552" y="682" font-size="10" fill="#ccffcc">Bundled by default, SSO via</text>
+<text x="552" y="699" font-size="10" fill="#ccffcc">Dex with audit trails.</text>
+
+<rect x="20" y="712" width="820" height="54" fill="#0d0d0d"/>
+<text x="34" y="736" font-size="10" font-weight="700" fill="#e0ffe0">Image automation</text>
+<text x="238" y="736" font-size="10" fill="#ccffcc">Native. Scans registries and</text>
+<text x="238" y="753" font-size="10" fill="#ccffcc">writes new tags back to Git.</text>
+<text x="552" y="736" font-size="10" fill="#ccffcc">Argo CD Image Updater, kept</text>
+<text x="552" y="753" font-size="10" fill="#ccffcc">as a project outside core.</text>
+
+<rect x="20" y="766" width="820" height="54" fill="#0a0a0a"/>
+<text x="34" y="790" font-size="10" font-weight="700" fill="#e0ffe0">Fleet generation</text>
+<text x="238" y="790" font-size="10" fill="#ccffcc">No first-party equivalent.</text>
+<text x="238" y="807" font-size="10" fill="#ccffcc">Kustomize or scripting.</text>
+<text x="552" y="790" font-size="10" fill="#ccffcc">ApplicationSets with cluster,</text>
+<text x="552" y="807" font-size="10" fill="#ccffcc">Git, PR, matrix generators.</text>
+
+<rect x="20" y="820" width="820" height="54" fill="#0d0d0d"/>
+<text x="34" y="844" font-size="10" font-weight="700" fill="#e0ffe0">Helm handling</text>
+<text x="238" y="844" font-size="10" fill="#ccffcc">Preserves the Helm release</text>
+<text x="238" y="861" font-size="10" fill="#ccffcc">lifecycle, seen in helm list.</text>
+<text x="552" y="844" font-size="10" fill="#ccffcc">Treats Helm as a manifest</text>
+<text x="552" y="861" font-size="10" fill="#ccffcc">generator via helm template.</text>
+
+<rect x="20" y="874" width="820" height="54" fill="#0a0a0a"/>
+<text x="34" y="898" font-size="10" font-weight="700" fill="#e0ffe0">Secret management</text>
+<text x="238" y="898" font-size="10" fill="#ccffcc">SOPS decryption built into</text>
+<text x="238" y="915" font-size="10" fill="#ccffcc">kustomize-controller.</text>
+<text x="552" y="898" font-size="10" fill="#ccffcc">No bundled approach. Pair</text>
+<text x="552" y="915" font-size="10" fill="#ccffcc">with ESO or Sealed Secrets.</text>
+
+<rect x="20" y="928" width="820" height="54" fill="#0d0d0d"/>
+<text x="34" y="952" font-size="10" font-weight="700" fill="#e0ffe0">OCI support</text>
+<text x="238" y="952" font-size="10" fill="#ccffcc">First-class OCIRepository,</text>
+<text x="238" y="969" font-size="10" fill="#ccffcc">same semantics as Git.</text>
+<text x="552" y="952" font-size="10" fill="#ccffcc">Deploys Helm charts and</text>
+<text x="552" y="969" font-size="10" fill="#ccffcc">manifests as OCI artifacts.</text>
+
+<rect x="20" y="982" width="820" height="54" fill="#0a0a0a"/>
+<text x="34" y="1006" font-size="10" font-weight="700" fill="#e0ffe0">Reconciliation</text>
+<text x="238" y="1006" font-size="10" fill="#ccffcc">Per-resource intervals,</text>
+<text x="238" y="1023" font-size="10" fill="#ccffcc">tuned independently.</text>
+<text x="552" y="1006" font-size="10" fill="#ccffcc">App-level loop plus webhooks.</text>
+<text x="552" y="1023" font-size="10" fill="#ccffcc">Simpler mental model.</text>
+
+<rect x="20" y="1036" width="820" height="54" fill="#0d0d0d"/>
+<text x="34" y="1060" font-size="10" font-weight="700" fill="#e0ffe0">Progressive delivery</text>
+<text x="238" y="1060" font-size="10" fill="#ccffcc">Flagger, canary and</text>
+<text x="238" y="1077" font-size="10" fill="#ccffcc">blue/green with rollback.</text>
+<text x="552" y="1060" font-size="10" fill="#ccffcc">Argo Rollouts, richer traffic</text>
+<text x="552" y="1077" font-size="10" fill="#ccffcc">management, dedicated UI.</text>
+
+<rect x="20" y="1090" width="820" height="54" fill="#0a0a0a"/>
+<text x="34" y="1114" font-size="10" font-weight="700" fill="#e0ffe0">Multi-tenancy</text>
+<text x="238" y="1114" font-size="10" fill="#ccffcc">Native Kubernetes RBAC with</text>
+<text x="238" y="1131" font-size="10" fill="#ccffcc">ServiceAccount impersonation.</text>
+<text x="552" y="1114" font-size="10" fill="#ccffcc">Argo-specific Projects plus</text>
+<text x="552" y="1131" font-size="10" fill="#ccffcc">its own RBAC layer.</text>
+
+<line x1="20" y1="712" x2="840" y2="712" stroke="#1a3d2e"/>
+<line x1="20" y1="766" x2="840" y2="766" stroke="#1a3d2e"/>
+<line x1="20" y1="820" x2="840" y2="820" stroke="#1a3d2e"/>
+<line x1="20" y1="874" x2="840" y2="874" stroke="#1a3d2e"/>
+<line x1="20" y1="928" x2="840" y2="928" stroke="#1a3d2e"/>
+<line x1="20" y1="982" x2="840" y2="982" stroke="#1a3d2e"/>
+<line x1="20" y1="1036" x2="840" y2="1036" stroke="#1a3d2e"/>
+<line x1="20" y1="1090" x2="840" y2="1090" stroke="#1a3d2e"/>
+<line x1="224" y1="628" x2="224" y2="1144" stroke="#1a3d2e"/>
+<line x1="538" y1="628" x2="538" y2="1144" stroke="#1a3d2e"/>
+<line x1="20" y1="658" x2="840" y2="658" stroke="#00ff4155" stroke-width="1.5"/>
+<rect x="20" y="628" width="820" height="516" fill="none" stroke="#1a3d2e"/>
+
+<text x="20" y="1196" font-size="10" fill="#2d6b2d" letter-spacing="3">// DEPENDENCY AND ORDERING</text>
+<line x1="20" y1="1204" x2="840" y2="1204" stroke="#1a3d2e"/>
+
+<rect x="20" y="1218" width="402" height="216" rx="8" fill="#0d0d0de6" stroke="#1a3d2e"/>
+<text x="221" y="1246" text-anchor="middle" font-size="11.5" font-weight="700" fill="#00ff41" letter-spacing="1">FLUX — GRAPH-BASED</text>
+
+<rect x="44" y="1266" width="88" height="32" rx="5" fill="#00ff410d" stroke="#1a3d2e"/>
+<text x="88" y="1286" text-anchor="middle" font-size="10" font-weight="700" fill="#e0ffe0">CRDs</text>
+<rect x="177" y="1266" width="88" height="32" rx="5" fill="#00ff410d" stroke="#1a3d2e"/>
+<text x="221" y="1286" text-anchor="middle" font-size="10" font-weight="700" fill="#e0ffe0">Operator</text>
+<rect x="310" y="1266" width="88" height="32" rx="5" fill="#00ff410d" stroke="#1a3d2e"/>
+<text x="354" y="1286" text-anchor="middle" font-size="10" font-weight="700" fill="#e0ffe0">App</text>
+
+<line x1="136" y1="1282" x2="171" y2="1282" stroke="#2d6b2d" stroke-width="1.5" marker-end="url(#ag)"/>
+<line x1="269" y1="1282" x2="304" y2="1282" stroke="#2d6b2d" stroke-width="1.5" marker-end="url(#ag)"/>
+<text x="154" y="1316" text-anchor="middle" font-size="9" fill="#2d6b2d">dependsOn</text>
+<text x="287" y="1316" text-anchor="middle" font-size="9" fill="#2d6b2d">dependsOn</text>
+
+<text x="221" y="1350" text-anchor="middle" font-size="10" fill="#ccffcc">Uses dependsOn plus health checks.</text>
+<text x="221" y="1369" text-anchor="middle" font-size="10" fill="#ccffcc">A resource will not reconcile until</text>
+<text x="221" y="1388" text-anchor="middle" font-size="10" fill="#ccffcc">its dependency reports healthy.</text>
+<text x="221" y="1414" text-anchor="middle" font-size="9.5" font-weight="700" fill="#00ff41">&gt; ordering across independent units</text>
+
+<rect x="438" y="1218" width="402" height="216" rx="8" fill="#0d0d0de6" stroke="#1a3d2e"/>
+<text x="639" y="1246" text-anchor="middle" font-size="11.5" font-weight="700" fill="#00d4ff" letter-spacing="1">ARGOCD — SEQUENTIAL</text>
+
+<rect x="456" y="1266" width="84" height="32" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="498" y="1286" text-anchor="middle" font-size="9.5" font-weight="700" fill="#e0ffe0">PreSync</text>
+<rect x="552" y="1266" width="80" height="32" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="592" y="1286" text-anchor="middle" font-size="9.5" font-weight="700" fill="#e0ffe0">Wave 1</text>
+<rect x="644" y="1266" width="80" height="32" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="684" y="1286" text-anchor="middle" font-size="9.5" font-weight="700" fill="#e0ffe0">Wave 2</text>
+<rect x="736" y="1266" width="86" height="32" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="779" y="1286" text-anchor="middle" font-size="9.5" font-weight="700" fill="#e0ffe0">PostSync</text>
+
+<line x1="542" y1="1282" x2="548" y2="1282" stroke="#2d6b2d" stroke-width="1.5" marker-end="url(#ag)"/>
+<line x1="634" y1="1282" x2="640" y2="1282" stroke="#2d6b2d" stroke-width="1.5" marker-end="url(#ag)"/>
+<line x1="726" y1="1282" x2="732" y2="1282" stroke="#2d6b2d" stroke-width="1.5" marker-end="url(#ag)"/>
+<text x="639" y="1316" text-anchor="middle" font-size="9" fill="#2d6b2d">sync phase, ordered by wave annotation</text>
+
+<text x="639" y="1350" text-anchor="middle" font-size="10" fill="#ccffcc">Uses sync waves (integer annotations)</text>
+<text x="639" y="1369" text-anchor="middle" font-size="10" fill="#ccffcc">and resource hooks. Ordering is a</text>
+<text x="639" y="1388" text-anchor="middle" font-size="10" fill="#ccffcc">sequence within one Application sync.</text>
+<text x="639" y="1414" text-anchor="middle" font-size="9.5" font-weight="700" fill="#00d4ff">&gt; ordering within one deployment</text>
+
+<text x="20" y="1486" font-size="10" fill="#2d6b2d" letter-spacing="3">// MULTI-CLUSTER MODEL</text>
+<line x1="20" y1="1494" x2="840" y2="1494" stroke="#1a3d2e"/>
+
+<rect x="20" y="1508" width="402" height="204" rx="8" fill="#0d0d0de6" stroke="#1a3d2e"/>
+<text x="221" y="1536" text-anchor="middle" font-size="11.5" font-weight="700" fill="#00ff41" letter-spacing="1">FLUX — DECENTRALIZED</text>
+
+<rect x="40" y="1556" width="112" height="44" rx="5" fill="#00ff410d" stroke="#1a3d2e"/>
+<text x="96" y="1576" text-anchor="middle" font-size="10" font-weight="700" fill="#e0ffe0">cluster-a</text>
+<text x="96" y="1592" text-anchor="middle" font-size="9" fill="#2d6b2d">flux inside</text>
+<rect x="165" y="1556" width="112" height="44" rx="5" fill="#00ff410d" stroke="#1a3d2e"/>
+<text x="221" y="1576" text-anchor="middle" font-size="10" font-weight="700" fill="#e0ffe0">cluster-b</text>
+<text x="221" y="1592" text-anchor="middle" font-size="9" fill="#2d6b2d">flux inside</text>
+<rect x="290" y="1556" width="112" height="44" rx="5" fill="#00ff410d" stroke="#1a3d2e"/>
+<text x="346" y="1576" text-anchor="middle" font-size="10" font-weight="700" fill="#e0ffe0">cluster-c</text>
+<text x="346" y="1592" text-anchor="middle" font-size="9" fill="#2d6b2d">flux inside</text>
+
+<text x="221" y="1632" text-anchor="middle" font-size="10" fill="#ccffcc">Each cluster reconciles itself. A failure</text>
+<text x="221" y="1651" text-anchor="middle" font-size="10" fill="#ccffcc">is contained to one environment, and</text>
+<text x="221" y="1670" text-anchor="middle" font-size="10" fill="#ccffcc">there is no external API to secure.</text>
+<text x="221" y="1694" text-anchor="middle" font-size="9.5" font-weight="700" fill="#00ff41">&gt; blast-radius containment</text>
+
+<rect x="438" y="1508" width="402" height="204" rx="8" fill="#0d0d0de6" stroke="#1a3d2e"/>
+<text x="639" y="1536" text-anchor="middle" font-size="11.5" font-weight="700" fill="#00d4ff" letter-spacing="1">ARGOCD — HUB AND SPOKE</text>
+
+<rect x="458" y="1552" width="124" height="52" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="520" y="1574" text-anchor="middle" font-size="10" font-weight="700" fill="#e0ffe0">central argocd</text>
+<text x="520" y="1591" text-anchor="middle" font-size="9" fill="#2d6b2d">ApplicationSets</text>
+
+<line x1="586" y1="1562" x2="668" y2="1548" stroke="#2d6b2d" stroke-width="1.4" marker-end="url(#ag)"/>
+<line x1="586" y1="1578" x2="668" y2="1578" stroke="#2d6b2d" stroke-width="1.4" marker-end="url(#ag)"/>
+<line x1="586" y1="1594" x2="668" y2="1608" stroke="#2d6b2d" stroke-width="1.4" marker-end="url(#ag)"/>
+
+<rect x="674" y="1532" width="130" height="30" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="739" y="1552" text-anchor="middle" font-size="9.5" font-weight="700" fill="#e0ffe0">spoke-cluster</text>
+<rect x="674" y="1564" width="130" height="30" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="739" y="1584" text-anchor="middle" font-size="9.5" font-weight="700" fill="#e0ffe0">spoke-cluster</text>
+<rect x="674" y="1596" width="130" height="30" rx="5" fill="#00d4ff0d" stroke="#1a3d2e"/>
+<text x="739" y="1616" text-anchor="middle" font-size="9.5" font-weight="700" fill="#e0ffe0">spoke-cluster</text>
+
+<text x="639" y="1652" text-anchor="middle" font-size="10" fill="#ccffcc">One instance manages many clusters. If it</text>
+<text x="639" y="1671" text-anchor="middle" font-size="10" fill="#ccffcc">goes down, running reconciliation continues,</text>
+<text x="639" y="1690" text-anchor="middle" font-size="10" fill="#ccffcc">but you cannot deploy until it is restored.</text>
+
+<text x="20" y="1764" font-size="10" fill="#2d6b2d" letter-spacing="3">// DECISION MATRIX</text>
+<line x1="20" y1="1772" x2="840" y2="1772" stroke="#1a3d2e"/>
+
+<rect x="20" y="1786" width="402" height="196" rx="8" fill="#00ff4108" stroke="#1a3d2e"/>
+<rect x="20" y="1786" width="2" height="196" fill="#00ff41" opacity="0.6"/>
+<text x="221" y="1814" text-anchor="middle" font-size="11.5" font-weight="700" fill="#00ff41" letter-spacing="1">CHOOSE FLUXCD IF</text>
+<text x="40" y="1842" font-size="9.5" fill="#ccffcc">[+] native image updates written to Git</text>
+<text x="40" y="1866" font-size="9.5" fill="#ccffcc">[+] ordering across independent units</text>
+<text x="40" y="1890" font-size="9.5" fill="#ccffcc">[+] SOPS decryption out of the box</text>
+<text x="40" y="1914" font-size="9.5" fill="#ccffcc">[+] keep the Helm release lifecycle</text>
+<text x="40" y="1938" font-size="9.5" fill="#ccffcc">[+] standard Kubernetes RBAC preferred</text>
+<text x="40" y="1962" font-size="9.5" fill="#ccffcc">[+] cluster autonomy over one dashboard</text>
+
+<rect x="438" y="1786" width="402" height="196" rx="8" fill="#00d4ff08" stroke="#1a3d2e"/>
+<rect x="438" y="1786" width="2" height="196" fill="#00d4ff" opacity="0.6"/>
+<text x="639" y="1814" text-anchor="middle" font-size="11.5" font-weight="700" fill="#00d4ff" letter-spacing="1">CHOOSE ARGOCD IF</text>
+<text x="458" y="1842" font-size="9.5" fill="#ccffcc">[+] batteries-included UI on day one</text>
+<text x="458" y="1866" font-size="9.5" fill="#ccffcc">[+] ApplicationSets to generate apps</text>
+<text x="458" y="1890" font-size="9.5" fill="#ccffcc">[+] SSO and audit bundled by default</text>
+<text x="458" y="1914" font-size="9.5" fill="#ccffcc">[+] many clusters from one place</text>
+<text x="458" y="1938" font-size="9.5" fill="#ccffcc">[+] already invested in Argo ecosystem</text>
+<text x="458" y="1962" font-size="9.5" fill="#ccffcc">[+] visual diffs cut support load</text>
+
+<rect x="20" y="2016" width="820" height="64" rx="8" fill="#00ff410a" stroke="#1a3d2e"/>
+<text x="430" y="2044" text-anchor="middle" font-size="10" fill="#ccffcc">Both are CNCF-graduated and production-proven. The right choice depends on</text>
+<text x="430" y="2063" text-anchor="middle" font-size="10" fill="#ccffcc">how your team works, not on which tool is better.</text>
+
+<text x="430" y="2120" text-anchor="middle" font-size="9" fill="#2d6b2d" letter-spacing="2">SAROJ KHADKA · SECURITY &amp; DEVOPS ENGINEER · KATHMANDU, NEPAL</text>
+</svg>
